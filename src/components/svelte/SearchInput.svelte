@@ -1,14 +1,42 @@
 <script>
-  import { wordInput, inputRef } from './store';
+  import { get } from "svelte/store";
+  import { wordInput, inputRef } from "./store";
 
   let inputElement;
-  
+
   $: if (inputElement) {
     $inputRef = inputElement;
   }
+
+  // エンターキー用検索処理（仮）→好きなサイトを選べるようにしたい
+  const performDefaultSearch = () => {
+  const searchWord = get(wordInput);
+  const encodedQuery = encodeURIComponent(searchWord.replace(/^[\p{C}\p{Z}]+|[\p{C}\p{Z}]+$/gu, ""));
+  const url = searchWord 
+    ? `https://www.google.co.jp/search?q=${encodedQuery}` 
+    : 'https://www.google.co.jp/';
+    
+  window.open(url);
+};
+
+  function handleKeydown(event) {
+    if (event.key === "Enter") {
+      // エンターキーが押されたらデフォルト検索を実行
+      event.preventDefault();
+      performDefaultSearch();
+    }
+  }
 </script>
 
-<input bind:this={inputElement} bind:value={$wordInput} type="search" name="search" id="window" inputmode="search" />
+<input
+  bind:this={inputElement}
+  bind:value={$wordInput}
+  on:keydown={handleKeydown}
+  type="search"
+  name="search"
+  id="window"
+  inputmode="search"
+/>
 
 <style>
   input[type="search"],

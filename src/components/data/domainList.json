@@ -135,7 +135,7 @@
 		"type": 6,
 		"category": "Social",
 		"name": "X",
-		"domain": "x.com",
+		"domain": "x.com/",
 		"subDomain": "",
 		"directory": "",
 		"queryBefore": "search?q=",
