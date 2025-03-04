@@ -1,0 +1,56 @@
+---
+import { Icon } from "astro-icon/components";
+import SearchInput from "./svelte/SearchInput.svelte";
+import SearchInputClear from "./svelte/SearchInputClear.svelte";
+---
+
+<form class="search-bar">
+  <div class="search-icon">
+    <Icon name="octicon:search-24" />
+  </div>
+  <SearchInput client:load />
+  <div class="clear-button">
+    <SearchInputClear client:load />
+  </div>
+</form>
+
+<style>
+  .search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    padding: 0;
+    width: 90%;
+    height: 2.4rem;
+    border-radius: 30px;
+    background-color: var(--search-bar-bg);
+    border: solid 1px var(--serach-bar-border);
+    transition: box-shadow 0.3s;
+  }
+
+  .search-bar:has(#window:focus),
+  .search-bar:hover {
+    box-shadow: 0 1px 10px 2px rgba(10, 10, 10, 0.1);
+  }
+
+  /* 検索窓アイコン */
+  .search-bar .search-icon {
+    width: 2em;
+    height: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--search-bar-icon);
+  }
+  .search-bar .search-icon {
+    padding: 0.25em 0.25em 0.25em 0.5em;
+  }
+  .search-bar .clear-button {
+    padding: 0.25em 0.5em 0.25em 0.25em;
+  }
+  .search-bar .clear-button:hover {
+    cursor: pointer;
+  }
+</style>

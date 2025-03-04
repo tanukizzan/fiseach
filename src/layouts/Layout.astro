@@ -1,22 +1,103 @@
+---
+import Header from "../components/Header.astro";
+import Logo from "../components/Logo.astro";
+import SearchBar from "../components/SearchBar.astro";
+import ConvertButton from "../components/ConvertButton.astro";
+import ButtonArea from "../components/ButtonArea.astro";
+import Footer from "../components/Footer.astro";
+
+const titleText = "fisea | ファイシ－";
+const descriptionText = "ファイシ－はふだん使うWebサイトをまとめて直接検索できるポータルサイトです。";
+
+---
+
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.webp" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{titleText}</title>
+    <meta property="og:title" content={titleText} />
+    <meta property="og:description" content={descriptionText} />
+    <meta property="og:image" content="/fisea-logo.webp" />
+    <meta property="og:url" content="https://fisea.ch" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={titleText} />
+    <meta name="twitter:description" content={descriptionText} />
+    <meta name="twitter:image" content="/fisea-logo.webp" />
+  </head>
+  <body>
+    <div class="container">
+      <Header />
+      <main>
+        <Logo />
+        <div class="search-area">
+          <SearchBar />
+          <ConvertButton />
+        </div>
+        <ButtonArea />
+      </main>
+      <Footer />
+    </div>
+  </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
+	.container {
+    display: flex;
+    flex-direction: column;
 		width: 100%;
-		height: 100%;
+		height: 100svh;
 	}
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    flex: 1;
+    overflow: hidden;
+  }
+  .search-area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2em;
+    width: 100%;
+    max-width: 640px;
+  }
+</style>
+
+<style is:global>
+  :root {
+    color-scheme: light dark;
+    --fisea-blue: #40adfa;
+    --fisea-black: light-dark(#0a1c29, #8fbee0);
+    --bg-color: light-dark(#f7fbfd, #050e15);
+    --text-color: light-dark(#0a1c29, #c3dcef);
+    --search-bar-bg: light-dark(#ffffff, #0a1c29);
+    --search-bar-icon: light-dark(#3a4750, #c3dcef);
+    --serach-bar-border: light-dark(#dfe1e5, #12334a);
+    --button-color: light-dark(#e9eef1, #12334a);
+    --button-text-color: light-dark(#0a1c29, #e7f2f8);
+  }
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 16px;
+  }
 </style>

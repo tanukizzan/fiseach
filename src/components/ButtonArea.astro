@@ -1,0 +1,107 @@
+---
+import SearchButton from "./svelte/SearchButton.svelte";
+import domainList from "./data/domainList.json";
+
+// カテゴリーごとにグループ化
+const groupedLists: { [key: string]: typeof domainList } = {};
+const order = ["Google", "AI", "Search", "Shopping", "Social"];
+
+// domainListをカテゴリーでグループ化
+domainList.forEach(item => {
+  const category = item.category || "その他"; // カテゴリーが未定義の場合は「その他」に分類
+  if (!groupedLists[category]) {
+    groupedLists[category] = [];
+  }
+  groupedLists[category].push(item);
+});
+
+// カテゴリーの順序をソートしたい場合（オプション）
+const sortedCategories = Object.keys(groupedLists).sort((x, y) => {
+    return order.indexOf(x) - order.indexOf(y);
+  });
+---
+
+<div class="button-area-container">
+  {
+    sortedCategories.map(category => (
+      <div class="category-section">
+        <span class="category-title">{category}</span>
+        <div class="button-area">
+          <ul>
+            {
+              groupedLists[category].map((list) => (
+                <li>
+                  <SearchButton
+                    type={list.type}
+                    name={list.name}
+                    domain={list.domain}
+                    subDomain={list.subDomain}
+                    directory={list.directory}
+                    queryBefore={list.queryBefore}
+                    queryAfter={list.queryAfter}
+                    queryAlt={list.queryAlt}
+                    client:load
+                  />
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .button-area-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 1em auto 2em auto;
+  }
+
+  .category-section {
+    display: flex;
+    justify-content: flex-start;
+    margin-top: 1em;
+  }
+  
+  .category-title {
+    display: flex;
+    width: 5rem;
+    min-width: 4rem;
+    height: auto;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 1em;
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--text-color);
+    flex-shrink: 0;
+  }
+  
+  .button-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .button-area ul {
+    display: flex;
+    white-space: nowrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+  }
+
+  @media (max-width: 700px) {
+    .button-area-container {
+      overflow-x: scroll;
+      width: 100%;
+    }
+    .category-section {
+      margin-left: 0.5em;
+    }
+  }
+</style>

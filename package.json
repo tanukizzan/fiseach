@@ -4,11 +4,24 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "devh": "astro dev --host",
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.4.0"
+    "@astrojs/react": "^4.2.1",
+    "@astrojs/svelte": "^7.0.5",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "astro": "^5.4.0",
+    "astro-icon": "^1.1.5",
+    "react-dom": "^19.0.0",
+    "svelte": "^5.20.5",
+    "typescript": "^5.8.2",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@iconify-json/octicon": "^1.2.5"
   }
 }
