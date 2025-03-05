@@ -1,31 +1,53 @@
 ---
+import { Icon } from "astro-icon/components";
 import SearchButton from "./svelte/SearchButton.svelte";
 import domainList from "./data/domainList.json";
 
 // カテゴリーごとにグループ化
 const groupedLists: { [key: string]: typeof domainList } = {};
-const order = ["Google", "AI", "Search", "Shopping", "Social"];
+
+// カテゴリーとアイコンの対応マップを作成
+const categoryIconMap: { [key: string]: string } = {
+  "Google": "cib:google",
+  "Search": "octicon:search-16",
+  "AI": "octicon:light-bulb-16",
+  "Shopping": "mdi:shopping-cart",
+  "Social": "octicon:hash-16",
+  "Other": "mdi:folder-outline"
+};
+
+// カテゴリーの表示順序
+const categoryOrder = ["Google", "Search", "AI", "Shopping", "Social", "Other"];
 
 // domainListをカテゴリーでグループ化
 domainList.forEach(item => {
-  const category = item.category || "その他"; // カテゴリーが未定義の場合は「その他」に分類
+  const category = item.category || "Other"; // カテゴリーが未定義の場合は「その他」に分類
   if (!groupedLists[category]) {
     groupedLists[category] = [];
   }
   groupedLists[category].push(item);
 });
 
-// カテゴリーの順序をソートしたい場合（オプション）
-const sortedCategories = Object.keys(groupedLists).sort((x, y) => {
-    return order.indexOf(x) - order.indexOf(y);
-  });
+// カテゴリーを指定順序で並べ替え
+const sortedCategories = Object.keys(groupedLists).sort((a, b) => {
+  const indexA = categoryOrder.indexOf(a);
+  const indexB = categoryOrder.indexOf(b);
+  
+  // 指定外のカテゴリは後ろに
+  if (indexA === -1) return 1;
+  if (indexB === -1) return -1;
+  
+  return indexA - indexB;
+});
 ---
 
 <div class="button-area-container">
   {
     sortedCategories.map(category => (
       <div class="category-section">
-        <span class="category-title">{category}</span>
+        <div class="category-icon">
+          <Icon name={categoryIconMap[category] || "mdi:folder-outline"} class:list="icon" />
+        </div>
         <div class="button-area">
           <ul>
             {
@@ -63,21 +85,26 @@ const sortedCategories = Object.keys(groupedLists).sort((x, y) => {
   .category-section {
     display: flex;
     justify-content: flex-start;
-    margin-top: 1em;
+    margin-top: 0.75em;
   }
   
-  .category-title {
+  .category-icon {
     display: flex;
-    width: 5rem;
-    min-width: 4rem;
-    height: auto;
-    justify-content: flex-end;
+    width: 2.5em;
+    height: 2.5em;
+    justify-content: center;
     align-items: center;
-    margin-right: 1em;
+    margin-right: 0.5em;
     font-size: 1rem;
     font-weight: bold;
     color: var(--button-text-color);
+    background-color: var(--button-color);
+    border-radius: 999px;
     flex-shrink: 0;
+  }
+  .category-icon .icon {
+    width: 1.25em;
+    height: 1.25em;
   }
   
   .button-area {
@@ -101,7 +128,7 @@ const sortedCategories = Object.keys(groupedLists).sort((x, y) => {
       width: 100%;
     }
     .category-section {
-      margin-left: 0.5em;
+      margin-left: 1.3em;
     }
   }
 </style>

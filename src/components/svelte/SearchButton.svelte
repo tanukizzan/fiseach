@@ -84,6 +84,11 @@
 <style>
   a {
     display: inline-block;
+    width: auto;
+    min-width: 2.4em;
+    height: auto;
+    text-align: center;
+    align-items: center;
     background-color: var(--button-color);
     color: var(--button-text-color);
     text-decoration: none;
