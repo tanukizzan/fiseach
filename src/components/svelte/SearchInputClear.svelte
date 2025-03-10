@@ -9,6 +9,7 @@
   }
 </script>
 
+{#if $wordInput && $wordInput.length > 0}
 <button 
   type="button"
   class="clear-button"
@@ -30,6 +31,7 @@
     <line x1="6" y1="6" x2="18" y2="18"></line>
   </svg>
 </button>
+{/if}
 
 <style>
   .clear-button {
@@ -42,17 +44,13 @@
     background: transparent;
     cursor: pointer;
     padding: 4px;
+    margin-right: 0.75em;
     color: var(--search-bar-icon);
-    border-radius: 50%;
-    transition: background-color 0.2s;
+    transition: .2s;
   }
 
-  .clear-button:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-  }
-
+  .clear-button:hover,
   .clear-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(10, 28, 41, 0.5);
+    opacity: 0.8;
   }
 </style>

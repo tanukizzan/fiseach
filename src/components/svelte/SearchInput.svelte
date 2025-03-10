@@ -1,23 +1,11 @@
 <script>
-  import { get } from "svelte/store";
-  import { wordInput, inputRef } from "./store";
+  import { wordInput, inputRef, performDefaultSearch } from "./store";
 
   let inputElement;
 
   $: if (inputElement) {
     $inputRef = inputElement;
   }
-
-  // エンターキー用検索処理（仮）→好きなサイトを選べるようにしたい
-  const performDefaultSearch = () => {
-  const searchWord = get(wordInput);
-  const encodedQuery = encodeURIComponent(searchWord.replace(/^[\p{C}\p{Z}]+|[\p{C}\p{Z}]+$/gu, ""));
-  const url = searchWord 
-    ? `https://www.google.co.jp/search?q=${encodedQuery}` 
-    : 'https://www.google.co.jp/';
-    
-  window.open(url);
-};
 
   function handleKeydown(event) {
     if (event.key === "Enter") {
@@ -26,9 +14,19 @@
       performDefaultSearch();
     }
   }
+
+  // テキストエリアの高さを自動調整する
+  function setTextareaHeight() {
+    if (!inputElement) return;
+
+    inputElement.style.height = "auto";
+    inputElement.style.height = `${inputElement.scrollHeight}px`;
+  }
+  // wordInputが変更されたときに高さを再計算する
+  $: $wordInput, setTimeout(setTextareaHeight, 0);
 </script>
 
-<input
+<textarea
   bind:this={inputElement}
   bind:value={$wordInput}
   on:keydown={handleKeydown}
@@ -36,30 +34,36 @@
   name="search"
   id="window"
   inputmode="search"
-/>
+  rows="1"
+>
+</textarea>
 
 <style>
-  input[type="search"],
-  input[type="search"]::-webkit-search-cancel-button {
-    -webkit-appearance: none;
-  }
-
   #window {
+    resize: none;
+    overflow-y: none;
+    scrollbar-width: none;
     width: 100%;
-    height: 2.4rem;
-    line-height: 1em;
-    font-size: 1.2rem;
+    height: auto;
+    min-height: 1.1em;
+    max-height: auto;
+    line-height: 1.1em;
+    font-size: 1.1em;
+    font-family: inherit;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     background-color: var(--search-bar-bg);
     padding: 0;
     margin: 0;
+    border-radius: 0;
     outline: none;
     border: none;
-    transition: 0.3s;
+    transition: 0.2s;
     color: var(--text-color);
-    vertical-align: bottom;
+  }
+  #window::-webkit-scrollbar {
+    display: none;
   }
 
   /* autocomplete時の背景色無効 */

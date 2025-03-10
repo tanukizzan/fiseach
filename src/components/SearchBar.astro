@@ -2,15 +2,19 @@
 import { Icon } from "astro-icon/components";
 import SearchInput from "./svelte/SearchInput.svelte";
 import SearchInputClear from "./svelte/SearchInputClear.svelte";
+import SearchSubmitButton from "./svelte/SearchSubmitButton.svelte";
 ---
 
 <form class="search-bar">
   <div class="search-icon">
     <Icon name="octicon:search-24" />
   </div>
-  <SearchInput client:load />
-  <div class="clear-button">
-    <SearchInputClear client:load />
+  <div class="input-area">
+    <SearchInput client:load />
+  </div>
+  <SearchInputClear client:load />
+  <div class="submit-button">
+    <SearchSubmitButton client:load />
   </div>
 </form>
 
@@ -18,39 +22,56 @@ import SearchInputClear from "./svelte/SearchInputClear.svelte";
   .search-bar {
     position: relative;
     display: flex;
+    justify-content: flex-start;
     align-items: center;
-    justify-content: space-between;
     margin: 0 auto;
     padding: 0;
     width: 90%;
-    height: 2.4rem;
-    border-radius: 30px;
+    height: auto;
+    border-radius: 6px;
     background-color: var(--search-bar-bg);
     border: solid 1px var(--serach-bar-border);
-    transition: box-shadow 0.3s;
+    transition: .2s;
   }
 
   .search-bar:has(#window:focus),
   .search-bar:hover {
     box-shadow: 0 1px 10px 2px rgba(10, 10, 10, 0.1);
+    border: solid 1px var(--serach-bar-border-hover);
   }
 
-  /* 検索窓アイコン */
-  .search-bar .search-icon {
-    width: 2em;
-    height: 2em;
+  .search-bar .input-area {
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--search-bar-icon);
+    padding: 0.5em 0;
   }
+
+  /* 検索アイコン */
   .search-bar .search-icon {
-    padding: 0.25em 0.25em 0.25em 0.5em;
+    width: 2em;
+    height: auto;
+    min-height: 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 0.25em;
+    color: var(--search-bar-icon);
+    flex-shrink: 0;
   }
-  .search-bar .clear-button {
-    padding: 0.25em 0.5em 0.25em 0.25em;
-  }
-  .search-bar .clear-button:hover {
+  /* 検索遷移ボタン */
+  .search-bar .submit-button {
+    background-color: var(--fisea-blue);
+    height: 100%;
+    width: 2.4em;
+    padding-left: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 6px 6px 0;
     cursor: pointer;
+    flex-shrink: 0;
   }
 </style>

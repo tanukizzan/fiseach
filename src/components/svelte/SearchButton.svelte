@@ -83,18 +83,23 @@
 
 <style>
   a {
-    display: inline-block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: auto;
     min-width: 2.4em;
     height: auto;
-    text-align: center;
-    align-items: center;
+    min-height: 1.5em;
     background-color: var(--button-color);
     color: var(--button-text-color);
     text-decoration: none;
-    padding: 0.6em 0.9em;
+    padding: 0.6em 1em;
     margin-right: 0.5em;
     border-radius: 6px;
     flex-shrink: 0;
+    transition: .2s;
+  }
+  a:hover {
+    color: var(--button-text-color-hover);
   }
 </style>
