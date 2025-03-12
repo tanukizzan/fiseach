@@ -47,17 +47,18 @@
 
 <style>
   .submit-button {
-    width: 2em;
-    height: 2em;
+    height: 100%;
+    width: auto;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    background-color: var(--submit-button);
     border: none;
-    background: transparent;
-    cursor: pointer;
-    padding: 2px;
-    color: var(--search-bar-icon);
+    border-radius: 0 5px 5px 0;
+    padding: 0 13px;
     transition: .2s;
+    cursor: pointer;
+    flex-shrink: 0;
   }
 
   .submit-button:hover,

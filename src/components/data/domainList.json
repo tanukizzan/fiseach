@@ -113,7 +113,7 @@
 		"type": 4,
 		"category": "Shopping",
 		"name": "Rakuten",
-		"domain": "www.rakuten.co.jp/",
+		"domain": "rakuten.co.jp/",
 		"subDomain": "search.",
 		"directory": "",
 		"queryBefore": "search/mall/",

@@ -20,7 +20,7 @@
     if (!inputElement) return;
 
     inputElement.style.height = "auto";
-    inputElement.style.height = `${inputElement.scrollHeight}px`;
+    inputElement.style.height = `${inputElement.scrollHeight - 24}px`;
   }
   // wordInputが変更されたときに高さを再計算する
   $: $wordInput, setTimeout(setTextareaHeight, 0);
@@ -31,7 +31,8 @@
   bind:value={$wordInput}
   on:keydown={handleKeydown}
   type="search"
-  name="search"
+  name="検索エリア"
+  title="検索エリア"
   id="window"
   inputmode="search"
   rows="1"
@@ -53,8 +54,9 @@
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    vertical-align: middle;
     background-color: var(--search-bar-bg);
-    padding: 0;
+    padding: 12px 0;
     margin: 0;
     border-radius: 0;
     outline: none;
