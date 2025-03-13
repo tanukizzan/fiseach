@@ -1,6 +1,6 @@
 <footer>
-  <a href="/">設定</a>
-  <a href="/">使い方</a>
+  <a href="/" id="settings">設定</a>
+  <a href="https://github.com/tanukizzan/fiseach?tab=readme-ov-file#readme" id="howto">使い方</a>
 </footer>
 
 <style>
@@ -14,7 +14,11 @@
     text-decoration: none;
     margin: 1em auto;
   }
-  footer a:hover {
+  footer #settings {
+    opacity: 0.7;
+    pointer-events: none;
+  }
+  footer #howto:hover {
     text-decoration: underline;
   }
 </style>
